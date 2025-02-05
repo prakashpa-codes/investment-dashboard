@@ -34,7 +34,7 @@ This project is a responsive Investment Dashboard built using **Angular 19.1.3**
 
 ---
 
-## ** Prerequisites**
+## Prerequisites
 Ensure you have the following installed:
 - **Node.js** (Download: https://nodejs.org/)
 - **Angular CLI**  
