@@ -1,6 +1,6 @@
 # Investment Dashboard POC - Angular
 
-This project is a responsive Investment Dashboard built using **Angular 19.1.3**. It features **data visualization**, **dynamic charts**, and **interactive tables** to manage investment data effectively. The application also includes **export functionality (CSV, Excel, PDF)**, **sorting, filtering, pagination**, and **responsive design adjustments for mobile and desktop views**.
+This project is a responsive Investment Dashboard built using **Angular 19.1.3**. It features **data visualization**, **dynamic charts**, and **interactive tables** to manage investment data effectively. The application also includes **export functionality (CSV, Excel, PDF)**, **sorting, filtering, pagination**, and **responsive design for mobile and desktop views**.
 
 ---
 
