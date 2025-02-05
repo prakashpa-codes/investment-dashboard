@@ -3,7 +3,7 @@
     {
       "category": "Bonds",
       "amount": 90000,
-      "date": "2025-03-01",
+      "date": "2025-03-03",
       "growth": -40,
       "gain": -36000,
       "id": "3c4d"
@@ -223,6 +223,14 @@
       "date": "2025-01-30",
       "growth": 14.1,
       "gain": 1887.4
+    },
+    {
+      "id": "c874",
+      "category": "Bonds",
+      "amount": 89765,
+      "date": "2025-02-05",
+      "growth": 10,
+      "gain": 8976.5
     }
   ]
 }

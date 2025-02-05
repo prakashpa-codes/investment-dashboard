@@ -15,9 +15,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import * as ExcelJS from 'exceljs';
+import saveAs from 'file-saver';
 
 @Component({
   selector: 'app-table',
@@ -196,7 +198,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.isMobileView = window.innerWidth < 768;
   }
 
-  // 🔹 Export to CSV
+  // Export to CSV
   exportToCSV(): void {
     const csvData = this.dataSource.data.map(({ category, amount, growth, gain, date }) =>
       [category, amount, growth, gain, date]
@@ -211,7 +213,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     link.click();
   }
 
-  // 🔹 Export to Excel
+  // Export to Excel
+  /*
   exportToExcel() {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
       this.investments.map(({ id, expanded, ...investment }) => investment)
@@ -220,16 +223,99 @@ export class TableComponent implements OnInit, AfterViewInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Investments');
     XLSX.writeFile(wb, 'Investments.xlsx');
   }
+*/
+exportToExcel(): void {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Investments');
 
-  // 🔹 Export to PDF
-  exportToPDF(): void {
+  // Define columns
+  worksheet.columns = [
+    { header: 'Category', key: 'category', width: 20 },
+    { header: 'Amount', key: 'amount', width: 15 },
+    { header: 'Growth (%)', key: 'growth', width: 15 },
+    { header: 'Gain/Loss', key: 'gain', width: 15 },
+    { header: 'Invested Date', key: 'date', width: 15 },
+  ];
+
+  // Use filtered data if available, otherwise use all investments
+  const exportData = this.dataSource.filteredData.length > 0 
+    ? this.dataSource.filteredData  // Export only filtered data
+    : this.investments;  // Export all data if no filter is applied
+
+  // Add rows (skip 'id' and 'expanded' properties)
+  exportData.forEach(investment => {
+    worksheet.addRow({
+      category: investment.category,
+      amount: investment.amount,
+      growth: investment.growth,
+      gain: investment.gain,
+      date: investment.date
+    });
+  });
+
+  // Save the file
+  workbook.xlsx.writeBuffer().then((buffer) => {
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, 'Investments.xlsx');
+  });
+}  
+
+  // Export to PDF
+  exportToPDFold(): void {
     const doc = new jsPDF();
+  
+    // Set title
+    doc.setFontSize(16);
+    doc.text('Investment Data', 14, 15);
+  
+    // Convert table data
+    const tableData = this.dataSource.filteredData.map(({ category, amount, growth, gain, date }) => [
+      category,
+      `$${amount.toLocaleString()}`,
+      `${growth}%`,
+      `$${gain.toLocaleString()}`,
+      new Date(date).toLocaleDateString('en-US')
+    ]);
+  
+    // Add table to PDF
     (doc as any).autoTable({
       head: [['Category', 'Amount', 'Growth (%)', 'Gain/Loss', 'Invested Date']],
-      body: this.dataSource.data.map(({ category, amount, growth, gain, date }) =>
-        [category, amount, growth, gain, date]
-      )
+      body: tableData,
+      startY: 20,
+      theme: 'striped'
     });
+  
+    // Save PDF file
     doc.save('Investments.pdf');
   }
+
+  exportToPDF(): void {
+    const doc = new jsPDF();
+  
+    // Set title
+    doc.setFontSize(16);
+    doc.text('Investment Data', 14, 15);
+  
+    // Convert table data
+    const tableData = this.dataSource.filteredData.map(({ category, amount, growth, gain, date }) => [
+      category,
+      `$${amount.toLocaleString()}`,
+      `${growth}%`,
+      `$${gain.toLocaleString()}`,
+      new Date(date).toLocaleDateString('en-US')
+    ]);
+  
+    // Ensure autoTable is attached correctly
+    autoTable(doc, {
+      head: [['Category', 'Amount', 'Growth (%)', 'Gain/Loss', 'Invested Date']],
+      body: tableData,
+      startY: 20,
+      theme: 'striped'
+    });
+  
+    // Save PDF file
+    doc.save('Investments.pdf');
+  }
+  
+  
 }

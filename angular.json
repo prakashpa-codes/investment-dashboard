@@ -19,6 +19,18 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "rgbcolor",
+              "raf",
+              "core-js",
+              "exceljs",
+              "jspdf",
+              "jspdf-autotable",
+              "file-saver",
+              "html2canvas",
+              "dompurify"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -37,8 +49,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "3MB",
+                  "maximumError": "4MB"
                 },
                 {
                   "type": "anyComponentStyle",
