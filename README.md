@@ -1,16 +1,74 @@
-# InvestmentDashboard
+# Investment Dashboard POC - Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+This project is a responsive Investment Dashboard built using **Angular 19.1.3**. It features **data visualization**, **dynamic charts**, and **interactive tables** to manage investment data effectively. The application also includes **export functionality (CSV, Excel, PDF)**, **sorting, filtering, pagination**, and **responsive design adjustments for mobile and desktop views**.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
 
+- **📊 Interactive Charts:** Uses `ng2-charts` (Chart.js) for:
+  - **Net Worth Progression (Line Chart)** - Tracks cumulative net worth over time.
+  - **Category Distribution (Pie Chart)** - Shows investment distribution by category.
+  - **ROI Over Time (Line Chart)** - Displays return on investment trends.
+  - **Investment vs Gain Comparison (Stacked Bar Chart)** - Compares investment amount vs. gains.
+- **🏦 Investment Management:** Add, edit, and delete investment records with real-time updates.
+- **📄 Data Table:** Displays all investments with sorting, filtering, and pagination.
+- **📱 Fully Responsive UI:** 
+  - **Desktop:** Side-by-side charts, fixed sidebar, investment table.
+  - **Mobile:** Collapsible sidebar, stacked layout, dropdown for chart selection.
+- **📤 Export Data:** Download investment data in **CSV, Excel, or PDF format**.
+- **🏗 Mock Database:** Uses `json-server` to serve investment data.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Angular 19.1.3** (Frontend framework)
+- **Angular Material** (UI components)
+- **Chart.js + ng2-charts** (Charts and graphs)
+- **JSON Server** (Mock API for data management)
+- **RxJS** (Reactive programming)
+- **TypeScript** (Strongly typed JavaScript)
+- **SCSS/CSS** (Responsive styling)
+- **Material Icons** (Icons for actions)
+
+---
+
+## 📌 Setup Instructions
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/prakashpa-kod/investment-dashboard.git
+cd investment-dashboard
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Start the Application & Mock Database
+
+```bash
+npm start
+```
+
+This will:
+- Start Angular app at `http://localhost:4200`
+- Run JSON Server at `http://localhost:3000/investments`
+
+Alternatively, if running separately:
+
+# Start Angular app only
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+# Start JSON Server separately
+```bash
+json-server --watch src/assets/mock-data/db.json --port 3000
+```
 
 ## Code scaffolding
 
@@ -57,3 +115,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## 📜 Additional Notes
+- **GitHub Repository:** [https://github.com/prakashpa-kod]
+- **Author:** Prakash Pa
+- **License:** MIT

@@ -1,0 +1,73 @@
+<!-- Mobile View: Dropdown for Selecting Charts -->
+<div class="chart-selector-container" *ngIf="!isDesktopView">
+  <mat-form-field appearance="outline">
+    <mat-label>Select Chart</mat-label>
+    <mat-select [(value)]="selectedChart">
+      <mat-option value="netWorth">Net Worth Progression</mat-option>
+      <mat-option value="category">Category Distribution</mat-option>
+      <mat-option value="roi">ROI Over Time</mat-option>
+      <mat-option value="investmentGain">Investment vs. Gain</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!-- Desktop View: Show charts side by side -->
+<div *ngIf="isDesktopView; else mobileView" class="graph-container">
+  <div class="chart">
+    <h3>Net Worth Progression</h3>
+    <canvas baseChart [data]="netWorthData" [type]="netWorthType" [options]="netWorthOptions"></canvas>
+  </div>
+  <div class="chart">
+    <h3>Category Distribution</h3>
+    <canvas baseChart [data]="categoryData" [type]="categoryType" [options]="categoryOptions"></canvas>
+  </div>
+  <div class="chart">
+    <h3>ROI Over Time</h3>
+    <canvas baseChart [data]="roiData" [type]="roiType" [options]="roiOptions"></canvas>
+  </div>
+  <div class="chart">
+    <h3>Investment vs. Gain</h3>
+    <canvas baseChart [data]="investmentGainData" [type]="investmentGainType" [options]="investmentGainOptions"></canvas>
+  </div>
+</div>
+
+<!-- Mobile View: Show only selected chart -->
+<ng-template #mobileView>
+  <div class="chart">
+    <h3 *ngIf="selectedChart === 'netWorth'">Net Worth Progression</h3>
+    <canvas
+      *ngIf="selectedChart === 'netWorth'"
+      baseChart
+      [data]="netWorthData"
+      [type]="netWorthType"
+      [options]="netWorthOptions"
+    ></canvas>
+
+    <h3 *ngIf="selectedChart === 'category'">Category Distribution</h3>
+    <canvas
+      *ngIf="selectedChart === 'category'"
+      baseChart
+      [data]="categoryData"
+      [type]="categoryType"
+      [options]="categoryOptions"
+    ></canvas>
+
+    <h3 *ngIf="selectedChart === 'roi'">ROI Over Time</h3>
+    <canvas
+      *ngIf="selectedChart === 'roi'"
+      baseChart
+      [data]="roiData"
+      [type]="roiType"
+      [options]="roiOptions"
+    ></canvas>
+
+    <h3 *ngIf="selectedChart === 'investmentGain'">Investment vs. Gain</h3>
+    <canvas
+      *ngIf="selectedChart === 'investmentGain'"
+      baseChart
+      [data]="investmentGainData"
+      [type]="investmentGainType"
+      [options]="investmentGainOptions"
+    ></canvas>
+  </div>
+</ng-template>

@@ -1,0 +1,19 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 240px;
+  background-color: #eeeeee;
+  
+}
+
+.menu-icon {
+  display: inline-block;
+}
+
+.content {
+  padding: 16px;
+  max-width: 1200px;
+  /* margin: auto; */
+}

@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav #sidenav mode="side" [opened]="isSidenavOpen" class="sidenav">
+    <mat-toolbar color="primary">
+      <span>Menu</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <!--<a mat-list-item *ngFor="let link of navLinks" href="#" (click)="closeSidenav()">{{ link }}</a>-->
+      <mat-nav-list>
+        <a mat-list-item href="/" (click)="closeSidenav()">Dashboard</a>
+        <a mat-list-item href="#chartsSection" (click)="closeSidenav()">Reports</a>
+        <a mat-list-item href="#investmentsSection" (click)="closeSidenav()">Investments</a>
+      </mat-nav-list>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <!-- Hamburger Menu Toggle (Desktop & Mobile) -->
+      <button mat-icon-button (click)="toggleSidenav()" class="menu-icon">
+        <mat-icon>{{ menuIcon }}</mat-icon>
+      </button>
+      <span>Investment Dashboard</span>
+    </mat-toolbar>
+    <div class="content">
+      <app-dashboard></app-dashboard>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

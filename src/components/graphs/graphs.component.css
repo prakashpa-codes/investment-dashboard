@@ -1,0 +1,21 @@
+.graph-container {
+    display: flex;
+    flex-direction: row; /* Change to row to align items horizontally */
+    justify-content: space-between; /* Adds space between the charts */
+    margin: 16px;
+    width: 100%; /* Full width of the parent container */
+    max-width: 1200px; /* Optionally, cap the maximum width */
+  }
+  
+  .chart {
+    width: 48%; /* Set each chart container to take 48% of the available width */
+  }
+  
+  .graph-container canvas {
+    width: 100% !important; /* Ensure canvas takes full width of its container */
+    height: auto !important; /* Maintain aspect ratio */
+    margin: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  

@@ -1,0 +1,154 @@
+<h2>Investments</h2>
+
+<!-- Search, Filters & Export Section -->
+<div class="filter-container">
+  <!-- 🔍 Search Input -->
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter()" [(ngModel)]="searchQuery" placeholder="Search investments..." />
+  </mat-form-field>
+
+  <!-- Category Filter Dropdown -->
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Category</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="filterByCategory()">
+      <mat-option value="">All Categories</mat-option>
+      <mat-option *ngFor="let category of uniqueCategories" [value]="category">
+        {{ category }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Export Options -->
+  <mat-form-field appearance="outline">
+    <mat-label>Export as</mat-label>
+    <mat-select [(value)]="selectedExport" (selectionChange)="exportAs()">
+      <mat-option value="" disabled>Select Format</mat-option>
+      <mat-option value="csv">CSV</mat-option>
+      <mat-option value="excel">Excel</mat-option>
+      <mat-option value="pdf">PDF</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- Floating Add Button -->
+  <button mat-fab color="accent" class="add-button" (click)="openAddForm()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<!-- Responsive View: Table for Desktop | Accordion for Mobile -->
+<div *ngIf="!isMobileView; else mobileView">
+  <!-- Desktop Investment Table -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+      <td mat-cell *matCellDef="let investment"> {{ investment.category }} </td>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+      <td mat-cell *matCellDef="let investment"> {{ investment.amount | currency }} </td>
+    </ng-container>
+
+    <!-- Growth Column -->
+    <ng-container matColumnDef="growth">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Growth (%) </th>
+      <td mat-cell *matCellDef="let investment"> {{ investment.growth }}% </td>
+    </ng-container>
+
+    <!-- Gain Column -->
+    <ng-container matColumnDef="gain">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gain/Loss </th>
+      <td mat-cell *matCellDef="let investment">
+        <span [ngClass]="{ 'gain': investment.gain > 0, 'loss': investment.gain < 0 }">
+          {{ investment.gain | currency }}
+        </span>
+        <span class="gain-label">
+          {{ investment.gain > 0 ? '(Gain)' : '(Loss)' }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Invested Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Invested Date </th>
+      <td mat-cell *matCellDef="let investment"> {{ investment.date | date:'MM/dd/yyyy' }} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let investment">
+        <button mat-icon-button color="primary" (click)="editInvestment(investment)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="confirmDeleteInvestment(investment.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table Header & Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Pagination for Desktop -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of investments"></mat-paginator>
+</div>
+
+<!-- Mobile View: Accordion -->
+<ng-template #mobileView>
+  <mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let investment of dataSource.paginator ? dataSource._pageData(dataSource.data) : dataSource.data" (opened)="toggleExpand(investment)">
+
+      <!-- Panel Header: Category & Gain/Loss -->
+      <mat-expansion-panel-header>
+        <mat-panel-title class="panel-title">
+          <span class="category">{{ investment.category }}</span>
+        </mat-panel-title>
+        <mat-panel-description class="gain-loss">
+          <span [ngClass]="{ 'gain': investment.gain > 0, 'loss': investment.gain < 0 }">
+            {{ investment.gain | currency }} 
+          </span>
+          <span class="gain-label">
+            {{ investment.gain > 0 ? '(Gain)' : '(Loss)' }}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Expanded View Details -->
+      <div class="mobile-details">
+        <!-- Row 1: Amount & Growth -->
+        <div class="detail-row">
+          <p><strong>Amount:</strong> {{ investment.amount | currency }}</p>
+          <p><strong>Growth:</strong> {{ investment.growth }}%</p>
+        </div>
+
+        <!-- Row 2: Invested Date & Actions -->
+        <div class="detail-row">
+          <p><strong>Invested Date:</strong> {{ investment.date | date:'MM/dd/yyyy' }}</p>
+          <div class="mobile-actions">
+            <button mat-icon-button color="primary" (click)="editInvestment(investment)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="confirmDeleteInvestment(investment.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- Pagination for Mobile -->
+  <mat-paginator #mobilePaginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of investments"></mat-paginator>
+</ng-template>
+
+<!-- Empty State Message -->
+<div *ngIf="dataSource.data.length === 0" class="empty-message">
+  No investments found.
+</div>

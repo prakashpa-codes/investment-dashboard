@@ -1,0 +1,10 @@
+<div class="dashboard-container"> 
+  <div class="content">
+    <div class="graphs">
+      <app-graphs [investments]="investments"></app-graphs>
+    </div>
+    <div class="table">
+      <app-table (investmentsChanged)="onInvestmentsChanged($event)"></app-table>
+    </div>
+  </div>
+</div>

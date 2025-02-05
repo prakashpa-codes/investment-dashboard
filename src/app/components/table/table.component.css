@@ -1,0 +1,160 @@
+.empty-message {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #777;
+  padding: 20px;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.gain-loss {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1rem;
+}
+
+.gain {
+  color: green;
+}
+
+.loss {
+  color: red;
+}
+
+.gain-label {
+  color: gray;
+  font-size: 0.9rem;
+}
+
+.mobile-details {
+  font-size: 1rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.detail-row p {
+  margin: 5px 0;
+}
+
+.mobile-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Desktop Table (Show by Default) */
+.desktop-table {
+  display: table;
+  width: 100%;
+}
+
+/* Mobile Table (Hidden by Default) */
+.mobile-table {
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .desktop-table {
+    display: none; /* Hide desktop table */
+  }
+
+  .mobile-table {
+    display: block; /* Show mobile table */
+  }
+
+  .investment-card {
+    background: #fff;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .investment-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .investment-details {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+  }
+
+  .investment-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+
+/* Search and Filter Container */
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.filter-container .add-button {
+  margin-left: auto;
+  margin-bottom: 25px;
+}
+
+.filter-container mat-form-field {
+  width: 100%;
+}
+
+.table-container {
+  padding: 16px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  background: #f4f4f4;
+  border-bottom: 2px solid #ddd;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    padding: 8px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .filter-container .add-button {
+    width: 100%;
+  }
+}

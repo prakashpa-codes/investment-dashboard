@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Investment' : 'Add Investment' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="investmentForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category" placeholder="e.g., Stocks" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput formControlName="amount" type="number" placeholder="e.g., 10000" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input 
+        matInput 
+        [matDatepicker]="picker" 
+        formControlName="date" 
+        (keydown)="restrictInput($event)" 
+        (focus)="picker.open()"
+        readonly
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Growth (%)</mat-label>
+      <input matInput formControlName="growth" type="number" placeholder="e.g., 15" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [disabled]="investmentForm.invalid" (click)="save()">Save</button>
+</mat-dialog-actions>

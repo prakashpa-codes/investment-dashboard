@@ -1,0 +1,85 @@
+<h2>Investments</h2>
+
+<!-- 🔹 Search & Filter Section -->
+<div class="filter-container">
+  <!-- 🔍 Search Input -->
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter()" [(ngModel)]="searchQuery" placeholder="Search investments..." />
+  </mat-form-field>
+
+  <!-- 📂 Category Filter Dropdown -->
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Category</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="filterByCategory()">
+      <mat-option value="">All Categories</mat-option>
+      <mat-option *ngFor="let category of uniqueCategories" [value]="category">
+        {{ category }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!-- 📊 Investment Table -->
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+  <!-- 📌 Category Column -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+    <td mat-cell *matCellDef="let investment"> {{ investment.category }} </td>
+  </ng-container>
+
+  <!-- 💰 Amount Column -->
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+    <td mat-cell *matCellDef="let investment"> {{ investment.amount | currency }} </td>
+  </ng-container>
+
+  <!-- 📈 Growth Column -->
+  <ng-container matColumnDef="growth">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Growth (%) </th>
+    <td mat-cell *matCellDef="let investment"> {{ investment.growth }}% </td>
+  </ng-container>
+
+  <!-- 📊 Gain Column -->
+  <ng-container matColumnDef="gain">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Gain/Loss </th>
+    <td mat-cell *matCellDef="let investment"> {{ investment.gain | currency }} </td>
+  </ng-container>
+
+  <!-- 📅 Invested Date Column -->
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Invested Date </th>
+    <td mat-cell *matCellDef="let investment"> {{ investment.date | date:'MM/dd/yyyy' }} </td>
+  </ng-container>
+
+  <!-- ⚙️ Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let investment">
+      <button mat-icon-button color="primary" (click)="editInvestment(investment)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="confirmDeleteInvestment(investment.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- 🏷️ Table Header & Rows -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- 📑 Pagination -->
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of investments"></mat-paginator>
+
+<!-- ℹ️ Empty State Message -->
+<div *ngIf="dataSource.data.length === 0" class="empty-message">
+  No investments found.
+</div>
+
+<!-- ➕ Floating Add Button -->
+<button mat-fab color="accent" class="add-button" (click)="openAddForm()">
+  <mat-icon>add</mat-icon>
+</button>
