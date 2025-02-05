@@ -34,6 +34,21 @@ This project is a responsive Investment Dashboard built using **Angular 19.1.3**
 
 ---
 
+## ** Prerequisites**
+Ensure you have the following installed:
+- **Node.js** (Download: https://nodejs.org/)
+- **Angular CLI**  
+  Install globally using:
+  ```bash
+  npm install -g @angular/cli
+  ```
+- **JSON Server** (For mock API)  
+  Install globally using:
+  ```bash
+  npm install -g json-server
+  ```
+  ---
+
 ## 📌 Setup Instructions
 
 ### 1️⃣ Clone the Repository
@@ -43,11 +58,12 @@ git clone https://github.com/prakashpa-kod/investment-dashboard.git
 cd investment-dashboard
 ```
 
-### 2️⃣ Install Dependencies
-
+## **2️⃣ Install Dependencies**
+Run the following inside your project folder:
 ```bash
 npm install
 ```
+This will install all necessary dependencies, including JSON Server.
 
 ### 3️⃣ Start the Application & Mock Database
 
@@ -56,8 +72,9 @@ npm start
 ```
 
 This will:
-- Start Angular app at `http://localhost:4200`
-- Run JSON Server at `http://localhost:3000/investments`
+- Start Angular app at `http://localhost:4200` (Port may vary)
+- Run JSON Server at `http://localhost:3000/investments` (Port may vary)
+- If your json server is running in different port, please update the port value (default 3000) in src/app/services/investment.service.ts file.
 
 Alternatively, if running separately:
 
