@@ -54,7 +54,7 @@ Ensure you have the following installed:
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/prakashpa-kod/investment-dashboard.git
+git clone https://github.com/prakashpa-codes/investment-dashboard.git
 cd investment-dashboard
 ```
 
@@ -134,6 +134,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 ## 📜 Additional Notes
-- **GitHub Repository:** [https://github.com/prakashpa-kod]
+- **GitHub Repository:** [https://github.com/prakashpa-codes]
 - **Author:** Prakash Pa
 - **License:** MIT
